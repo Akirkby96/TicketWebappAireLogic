@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TicketWebappAireLogic.Models.commentTable>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All Comments</h2>
+
+<p>
+    @Html.ActionLink("Create New Comment", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Contents
+        </th>
+        <th>
+           Comment Time
+        </th>
+        <th>
+            Ticket Title
+        </th>
+        <th>
+            Comment By
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.commentContents)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.commentTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ticketTable.ticketTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userTable.userName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.commentID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.commentID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.commentID })
+        </td>
+    </tr>
+}
+
+</table>

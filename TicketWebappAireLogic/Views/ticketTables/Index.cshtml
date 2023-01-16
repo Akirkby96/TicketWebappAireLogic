@@ -1,0 +1,60 @@
+﻿@model IEnumerable<TicketWebappAireLogic.Models.ticketTable>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All Tickets</h2>
+
+<p>
+    @Html.ActionLink("Create New Ticket", "Create") | 
+    @Html.ActionLink("View Open Tickets", "Status", new { id = "open" }) |
+    @Html.ActionLink("View Closed Tickets", "Status", new { id = "closed" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Ticket Title
+        </th>
+        <th>
+            Ticket Description
+        </th>
+        <th>
+            Ticket Status
+        </th>
+        <th>
+            Ticket Creation Time
+        </th>
+        <th>
+            Assigned User
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ticketTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ticketDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ticketStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ticketCreationTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userTable.userName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ticketID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ticketID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ticketID }) 
+            
+        </td>
+    </tr>
+}
+
+</table>

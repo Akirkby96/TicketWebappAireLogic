@@ -1,0 +1,58 @@
+﻿@model TicketWebappAireLogic.Models.ticketTable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ticketTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ticketTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ticketTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ticketDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ticketDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ticketStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ticketStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ticketCreationTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ticketCreationTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userTable.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userTable.userName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ticketID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

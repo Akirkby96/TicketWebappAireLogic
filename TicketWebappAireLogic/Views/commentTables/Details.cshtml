@@ -1,0 +1,50 @@
+﻿@model TicketWebappAireLogic.Models.commentTable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>commentTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Comment Contents
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.commentContents)
+        </dd>
+
+        <dt>
+           Comment Time
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.commentTime)
+        </dd>
+
+        <dt>
+            Ticket Title
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ticketTable.ticketTitle)
+        </dd>
+
+        <dt>
+            Comment By
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userTable.userName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.commentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
