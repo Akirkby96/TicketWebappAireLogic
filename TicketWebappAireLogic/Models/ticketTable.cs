@@ -28,7 +28,8 @@ namespace TicketWebappAireLogic.Models
         public string ticketCreationTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<commentTable> commentTables { get; set; }
-        public virtual userTable userTable { get; set; }
+        [System.Runtime.Serialization.IgnoreDataMember]
+        public  ICollection<commentTable> commentTables { get; set; }
+        public  userTable userTable { get; set; }
     }
 }

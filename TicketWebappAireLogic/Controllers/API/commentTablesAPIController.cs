@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TicketWebappAireLogic.Models;
@@ -16,17 +17,17 @@ namespace TicketWebappAireLogic.Controllers.API
     {
         private ticketDBEntities2 db = new ticketDBEntities2();
 
-        // GET: api/commentTables
+        // GET: api/commentTablesAPI
         public IQueryable<commentTable> GetcommentTables()
         {
             return db.commentTables;
         }
 
-        // GET: api/commentTables/5
+        // GET: api/commentTablesAPI/5
         [ResponseType(typeof(commentTable))]
-        public IHttpActionResult GetcommentTable(int id)
+        public async Task<IHttpActionResult> GetcommentTable(int id)
         {
-            commentTable commentTable = db.commentTables.Find(id);
+            commentTable commentTable = await db.commentTables.FindAsync(id);
             if (commentTable == null)
             {
                 return NotFound();
@@ -35,9 +36,9 @@ namespace TicketWebappAireLogic.Controllers.API
             return Ok(commentTable);
         }
 
-        // PUT: api/commentTables/5
+        // PUT: api/commentTablesAPI/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutcommentTable(int id, commentTable commentTable)
+        public async Task<IHttpActionResult> PutcommentTable(int id, commentTable commentTable)
         {
             if (!ModelState.IsValid)
             {
@@ -53,7 +54,7 @@ namespace TicketWebappAireLogic.Controllers.API
 
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -70,9 +71,9 @@ namespace TicketWebappAireLogic.Controllers.API
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/commentTables
+        // POST: api/commentTablesAPI
         [ResponseType(typeof(commentTable))]
-        public IHttpActionResult PostcommentTable(commentTable commentTable)
+        public async Task<IHttpActionResult> PostcommentTable(commentTable commentTable)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +85,7 @@ namespace TicketWebappAireLogic.Controllers.API
             try
             {
                 commentTable.commentTime = DateTime.Now.ToString();
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
@@ -101,18 +102,18 @@ namespace TicketWebappAireLogic.Controllers.API
             return CreatedAtRoute("DefaultApi", new { id = commentTable.commentID }, commentTable);
         }
 
-        // DELETE: api/commentTables/5
+        // DELETE: api/commentTablesAPI/5
         [ResponseType(typeof(commentTable))]
-        public IHttpActionResult DeletecommentTable(int id)
+        public async Task<IHttpActionResult> DeletecommentTable(int id)
         {
-            commentTable commentTable = db.commentTables.Find(id);
+            commentTable commentTable = await db.commentTables.FindAsync(id);
             if (commentTable == null)
             {
                 return NotFound();
             }
 
             db.commentTables.Remove(commentTable);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return Ok(commentTable);
         }

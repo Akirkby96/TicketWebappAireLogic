@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TicketWebappAireLogic.Models;
@@ -16,17 +17,17 @@ namespace TicketWebappAireLogic.Controllers.API
     {
         private ticketDBEntities2 db = new ticketDBEntities2();
 
-        // GET: api/userTables
+        // GET: api/userTablesAPI
         public IQueryable<userTable> GetuserTables()
         {
             return db.userTables;
         }
 
-        // GET: api/userTables/5
+        // GET: api/userTablesAPI/5
         [ResponseType(typeof(userTable))]
-        public IHttpActionResult GetuserTable(int id)
+        public async Task<IHttpActionResult> GetuserTable(int id)
         {
-            userTable userTable = db.userTables.Find(id);
+            userTable userTable = await db.userTables.FindAsync(id);
             if (userTable == null)
             {
                 return NotFound();
@@ -35,9 +36,9 @@ namespace TicketWebappAireLogic.Controllers.API
             return Ok(userTable);
         }
 
-        // PUT: api/userTables/5
+        // PUT: api/userTablesAPI/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutuserTable(int id, userTable userTable)
+        public async Task<IHttpActionResult> PutuserTable(int id, userTable userTable)
         {
             if (!ModelState.IsValid)
             {
@@ -53,7 +54,7 @@ namespace TicketWebappAireLogic.Controllers.API
 
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -70,9 +71,9 @@ namespace TicketWebappAireLogic.Controllers.API
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/userTables
+        // POST: api/userTablesAPI
         [ResponseType(typeof(userTable))]
-        public IHttpActionResult PostuserTable(userTable userTable)
+        public async Task<IHttpActionResult> PostuserTable(userTable userTable)
         {
             if (!ModelState.IsValid)
             {
@@ -80,23 +81,23 @@ namespace TicketWebappAireLogic.Controllers.API
             }
 
             db.userTables.Add(userTable);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = userTable.userID }, userTable);
         }
 
-        // DELETE: api/userTables/5
+        // DELETE: api/userTablesAPI/5
         [ResponseType(typeof(userTable))]
-        public IHttpActionResult DeleteuserTable(int id)
+        public async Task<IHttpActionResult> DeleteuserTable(int id)
         {
-            userTable userTable = db.userTables.Find(id);
+            userTable userTable = await db.userTables.FindAsync(id);
             if (userTable == null)
             {
                 return NotFound();
             }
 
             db.userTables.Remove(userTable);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return Ok(userTable);
         }

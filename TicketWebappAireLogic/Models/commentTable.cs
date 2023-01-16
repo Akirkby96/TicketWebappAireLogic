@@ -20,7 +20,7 @@ namespace TicketWebappAireLogic.Models
         public Nullable<int> ticketID { get; set; }
         public Nullable<int> userID { get; set; }
     
-        public virtual ticketTable ticketTable { get; set; }
-        public virtual userTable userTable { get; set; }
+        public  ticketTable ticketTable { get; set; }
+        public  userTable userTable { get; set; }
     }
 }

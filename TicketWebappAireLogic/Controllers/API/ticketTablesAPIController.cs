@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TicketWebappAireLogic.Models;
@@ -16,17 +17,17 @@ namespace TicketWebappAireLogic.Controllers
     {
         private ticketDBEntities2 db = new ticketDBEntities2();
 
-        // GET: api/ticketTables1
+        // GET: api/ticketTablesAPI
         public IQueryable<ticketTable> GetticketTables()
         {
             return db.ticketTables;
         }
 
-        // GET: api/ticketTables1/5
+        // GET: api/ticketTablesAPI/5
         [ResponseType(typeof(ticketTable))]
-        public IHttpActionResult GetticketTable(int id)
+        public async Task<IHttpActionResult> GetticketTable(int id)
         {
-            ticketTable ticketTable = db.ticketTables.Find(id);
+            ticketTable ticketTable = await db.ticketTables.FindAsync(id);
             if (ticketTable == null)
             {
                 return NotFound();
@@ -35,9 +36,9 @@ namespace TicketWebappAireLogic.Controllers
             return Ok(ticketTable);
         }
 
-        // PUT: api/ticketTables1/5
+        // PUT: api/ticketTablesAPI/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutticketTable(int id, ticketTable ticketTable)
+        public async Task<IHttpActionResult> PutticketTable(int id, ticketTable ticketTable)
         {
             if (!ModelState.IsValid)
             {
@@ -53,7 +54,7 @@ namespace TicketWebappAireLogic.Controllers
 
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -70,9 +71,9 @@ namespace TicketWebappAireLogic.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/ticketTables1
+        // POST: api/ticketTablesAPI
         [ResponseType(typeof(ticketTable))]
-        public IHttpActionResult PostticketTable(ticketTable ticketTable)
+        public async Task<IHttpActionResult> PostticketTable(ticketTable ticketTable)
         {
             if (!ModelState.IsValid)
             {
@@ -80,23 +81,23 @@ namespace TicketWebappAireLogic.Controllers
             }
             ticketTable.ticketCreationTime = DateTime.Now.ToString();
             db.ticketTables.Add(ticketTable);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = ticketTable.ticketID }, ticketTable);
         }
 
-        // DELETE: api/ticketTables1/5
+        // DELETE: api/ticketTablesAPI/5
         [ResponseType(typeof(ticketTable))]
-        public IHttpActionResult DeleteticketTable(int id)
+        public async Task<IHttpActionResult> DeleteticketTable(int id)
         {
-            ticketTable ticketTable = db.ticketTables.Find(id);
+            ticketTable ticketTable = await db.ticketTables.FindAsync(id);
             if (ticketTable == null)
             {
                 return NotFound();
             }
 
             db.ticketTables.Remove(ticketTable);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return Ok(ticketTable);
         }
